@@ -239,10 +239,6 @@ hr {
 /* start about-us section */
 
 .about-us {
-    background-color: #eee;
-}
-
-.about-us .container {
     padding: 50px 0;
     display: flex;
 }
@@ -279,3 +275,128 @@ hr {
 }
 
 /* End about-us section */
+
+/* start skills section */
+
+.skills {
+    padding: 50px 0;
+    background-color: #eee;
+}
+
+.skills h2 {
+    text-align: center;
+    text-transform: capitalize;
+    color: var(--main-color);
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 35px;
+}
+
+.skills .skill-box {
+    display: flex;
+    background-color: white;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.skills .skill-box .skill-name {
+    width: 140px;
+    line-height: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.skills .skill-box .skill-progress {
+    width: 100%;
+    height: 30px;
+    background-color: #f6f6f6;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.skills .skill-box .skill-progress span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--main-color);
+    transition: width 0.5s ease-in-out;
+}
+
+/* end skills section */
+
+/* start gallery */
+.gallery {
+    padding: 50px 0;
+}
+
+.gallery h2 {
+    text-align: center;
+    text-transform: capitalize;
+    color: var(--main-color);
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 35px;
+}
+
+.images-box {
+    text-align: center;
+}
+
+.images-box img {
+    width: 200px;
+    height: 117px;
+    padding: 3px;
+    margin: 3px;
+    background-color: #f6f6f6;
+    border: 2px solid #ccc;
+    cursor: pointer;
+}
+
+/* Popup Overlay */
+.image-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* Enlarged Image */
+.image-popup img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #000;
+}
+
+/* Title */
+.image-popup .title {
+    color: white;
+    font-size: 20px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* Close Button */
+.image-popup .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+
+/* End gallery */

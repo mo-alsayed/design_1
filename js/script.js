@@ -101,3 +101,68 @@ btns.forEach(btn => {
         }
     });
 });
+
+// Select the skills section
+const skillsSection = document.querySelector('.skills');
+const spans = document.querySelectorAll('.skill-progress span');
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            // Animate the bars
+            spans.forEach(span => {
+                const progress = span.getAttribute('data-progress');
+                span.style.width = progress;
+            });
+        } else {
+            // Reset bars when section leaves the viewport
+            spans.forEach(span => {
+                span.style.width = '0';
+            });
+        }
+    });
+}, {
+    threshold: 0.5
+});
+
+observer.observe(skillsSection);
+
+
+const galleryImages = document.querySelectorAll('.gallery .images-box img');
+
+galleryImages.forEach(img => {
+    img.addEventListener('click', () => {
+        // Create popup elements
+        const popup = document.createElement('div');
+        popup.className = 'image-popup';
+
+        const popupImg = document.createElement('img');
+        popupImg.src = img.src;
+
+        const title = document.createElement('div');
+        title.className = 'title';
+        title.textContent = img.alt || 'No title';
+
+        const closeBtn = document.createElement('span');
+        closeBtn.className = 'close-btn';
+        closeBtn.innerHTML = '&times;'; // × symbol
+
+        // Close popup on click
+        closeBtn.addEventListener('click', () => {
+            popup.remove();
+        });
+
+        // Also close on background click
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                popup.remove();
+            }
+        });
+
+        // Append all elements
+        popup.appendChild(closeBtn);
+        popup.appendChild(popupImg);
+        popup.appendChild(title);
+        document.body.appendChild(popup);
+    });
+});
