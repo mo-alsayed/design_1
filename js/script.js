@@ -41,19 +41,8 @@ function changeBackground() {
     landingImg.style.backgroundImage = `url(imgs/${imgs[randomNumber]})`;
 }
 
-
 let bgInterval;
 const btns = document.querySelectorAll('.btns span');
-
-// function to start background shuffle
-// Function to change background image
-function changeBackground() {
-    const imgs = ['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg', '06.jpg'];
-    const randomNumber = Math.floor(Math.random() * imgs.length);
-    const landingImg = document.querySelector('.landing-page');
-    landingImg.style.backgroundImage = `url(../imgs/${imgs[randomNumber]})`;
-}
-
 
 // Function to start background shuffle
 function startShuffle() {
