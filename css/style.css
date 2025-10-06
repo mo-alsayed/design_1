@@ -370,14 +370,30 @@ hr {
     z-index: 9999;
     flex-direction: column;
     padding: 20px;
+    opacity: 0;
+    animation: fadeIn 0.4s forwards;
 }
 
-/* Enlarged Image */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Zoom effect */
 .image-popup img {
     max-width: 90%;
     max-height: 80%;
     border-radius: 10px;
     box-shadow: 0 0 20px #000;
+    transform: scale(0.8);
+    animation: zoomIn 0.4s forwards;
+}
+
+@keyframes zoomIn {
+    to {
+        transform: scale(1);
+    }
 }
 
 /* Title */
@@ -396,7 +412,257 @@ hr {
     font-size: 30px;
     color: white;
     cursor: pointer;
+    user-select: none;
 }
 
+/* Navigation buttons */
+.image-popup .nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 40px;
+    color: white;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    user-select: none;
+    padding: 10px;
+    z-index: 10000;
+}
 
-/* End gallery */
+.image-popup .prev-btn {
+    left: 30px;
+}
+
+.image-popup .next-btn {
+    right: 30px;
+}
+
+/* ========== SMALL SCREEN RESPONSIVE STYLES ========== */
+@media (max-width: 768px) {
+    .settings-box {
+        width: 160px;
+        left: -160px;
+        transition: left 0.4s ease;
+        position: fixed;
+        top: 0;
+        height: 100vh;
+    }
+
+    .settings-box.open {
+        left: 0;
+    }
+
+    /* Keep icon attached to the right edge of the box */
+    .settings-box .icon-container {
+        position: absolute;
+        top: 76px;
+        right: -40px;
+        /* pushes it just outside the box */
+        width: 40px;
+        height: 40px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+        z-index: 1001;
+    }
+
+    .settings-box .icon-container .icon {
+        font-size: 20px;
+        color: black;
+    }
+
+    /* Make layout fit mobile width */
+    .container {
+        width: 100%;
+        padding: 0 15px;
+    }
+
+    /* Header adjustments */
+    .landing-page .header {
+        align-items: center;
+        padding: 15px;
+    }
+
+    .landing-page .header .logo {
+        width: 100%;
+        padding: 0;
+        margin-bottom: 10px;
+        font-size: 24px;
+    }
+
+    .landing-page .header ul {
+        flex-direction: column;
+        padding: 0;
+        text-align: center;
+    }
+
+    .landing-page .header ul li {
+        margin: 10px 0;
+    }
+
+    /* Center hero text better on small screens */
+    .landing-page .information h1 {
+        font-size: 28px;
+        padding: 0 10px;
+    }
+
+    .landing-page .information p {
+        font-size: 16px;
+        padding: 0 15px;
+    }
+
+    /* About section stacks vertically */
+    .about-us {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .about-us .text-info {
+        padding: 15px;
+    }
+
+    .about-us .text-info h2 {
+        font-size: 26px;
+        margin: 0 0 10px;
+    }
+
+    .about-us .text-info p {
+        text-align: center;
+    }
+
+    .about-us .image img {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+        margin-top: 20px;
+    }
+
+    /* Skills section adjustments */
+    .skills .skill-box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .skills .skill-box .skill-name {
+        width: 100%;
+        margin-bottom: 5px;
+        text-align: left;
+    }
+
+    /* Gallery turns into grid */
+    .images-box {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 8px;
+        justify-items: center;
+    }
+
+    .images-box img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        /* Makes all same ratio */
+        object-fit: cover;
+        /* Crops neatly, no distortion */
+        border-radius: 6px;
+        background-color: #f6f6f6;
+        border: 2px solid #ccc;
+    }
+
+    /* Settings box smaller */
+    .settings-box {
+        width: 160px;
+    }
+
+    .settings-box .icon-container {
+        top: 60px;
+        right: -30px;
+    }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+    .landing-page .information h1 {
+        font-size: 22px;
+    }
+
+    .landing-page .information p {
+        font-size: 14px;
+    }
+
+    .about-us .text-info h2,
+    .skills h2,
+    .gallery h2 {
+        font-size: 22px;
+    }
+
+    .images-box {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    }
+
+    .images-box img {
+        aspect-ratio: 1 / 1;
+        /* Square style for very small screens */
+    }
+
+
+}
+
+/* ========== HAMBURGER MENU (MOBILE ONLY) ========== */
+.menu-toggle {
+    display: none;
+    font-size: 26px;
+    color: white;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+/* Mobile menu behavior */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+        margin-right: 20px;
+    }
+
+    .landing-page .header {
+        position: relative;
+    }
+
+    .landing-page .header ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        text-align: center;
+        padding: 15px 0;
+    }
+
+    .landing-page .header ul.show {
+        display: flex;
+        animation: fadeInDown 0.3s ease;
+    }
+
+    .landing-page .header ul li {
+        margin: 10px 0;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}

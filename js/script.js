@@ -116,9 +116,6 @@ const observer = new IntersectionObserver((entries) => {
             });
         } else {
             // Reset bars when section leaves the viewport
-            spans.forEach(span => {
-                span.style.width = '0';
-            });
         }
     });
 }, {
@@ -128,41 +125,80 @@ const observer = new IntersectionObserver((entries) => {
 observer.observe(skillsSection);
 
 
+
 const galleryImages = document.querySelectorAll('.gallery .images-box img');
+const imageList = Array.from(galleryImages); // to support next/prev
 
-galleryImages.forEach(img => {
-    img.addEventListener('click', () => {
-        // Create popup elements
-        const popup = document.createElement('div');
-        popup.className = 'image-popup';
+let currentIndex = 0;
 
-        const popupImg = document.createElement('img');
-        popupImg.src = img.src;
+function showPopup(index) {
+    const img = imageList[index];
 
-        const title = document.createElement('div');
-        title.className = 'title';
-        title.textContent = img.alt || 'No title';
+    // Create popup elements
+    const popup = document.createElement('div');
+    popup.className = 'image-popup';
 
-        const closeBtn = document.createElement('span');
-        closeBtn.className = 'close-btn';
-        closeBtn.innerHTML = '&times;'; // × symbol
+    const popupImg = document.createElement('img');
+    popupImg.src = img.src;
 
-        // Close popup on click
-        closeBtn.addEventListener('click', () => {
-            popup.remove();
-        });
+    const title = document.createElement('div');
+    title.className = 'title';
+    title.textContent = img.alt || 'No title';
 
-        // Also close on background click
-        popup.addEventListener('click', (e) => {
-            if (e.target === popup) {
-                popup.remove();
-            }
-        });
+    const closeBtn = document.createElement('span');
+    closeBtn.className = 'close-btn';
+    closeBtn.innerHTML = '&times;';
+    closeBtn.addEventListener('click', () => popup.remove());
 
-        // Append all elements
-        popup.appendChild(closeBtn);
-        popup.appendChild(popupImg);
-        popup.appendChild(title);
-        document.body.appendChild(popup);
+    // Next/Prev buttons
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'nav-btn next-btn';
+    nextBtn.innerHTML = '&#10095;'; // >
+    nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        popup.remove();
+        showPopup((index + 1) % imageList.length);
     });
+
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'nav-btn prev-btn';
+    prevBtn.innerHTML = '&#10094;'; // <
+    prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        popup.remove();
+        showPopup((index - 1 + imageList.length) % imageList.length);
+    });
+
+    // Close popup on background click
+    popup.addEventListener('click', (e) => {
+        if (e.target === popup) {
+            popup.remove();
+        }
+    });
+
+    // Assemble
+    popup.appendChild(closeBtn);
+    popup.appendChild(prevBtn);
+    popup.appendChild(nextBtn);
+    popup.appendChild(popupImg);
+    popup.appendChild(title);
+    document.body.appendChild(popup);
+}
+
+// Attach click event to each gallery image
+imageList.forEach((img, index) => {
+    img.addEventListener('click', () => {
+        currentIndex = index;
+        showPopup(index);
+    });
+});
+
+// Toggle navigation on small screens
+const menuToggle = document.querySelector('.menu-toggle');
+const navMenu = document.querySelector('.landing-page .header ul');
+const iconn = menuToggle.querySelector('i');
+
+menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('show');
+    iconn.classList.toggle('fa-xmark');
 });
